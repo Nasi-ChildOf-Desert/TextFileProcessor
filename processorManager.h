@@ -11,18 +11,12 @@ private:
     TextFileManager _fileManager;
     QMap<QString, QString> _params ;
     QString _fileContent;
-    bool _doUpperCase = false;
-    bool _doLowerCase = false;
-    bool _setFirsCharToUpper = false;
     void paramInitialize();
-    void doUpperCase();
-    void doLowerCase();
-    void setFirstChar();
 
 public:
     processorManager();
     void init(QMap<QString, QString>& parameters);
-    void startProcess();
+    void startSaving();
     QString responseOfProcess();
 };
 

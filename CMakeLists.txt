@@ -18,5 +18,11 @@ add_executable(TextFileProcessor
   main.cpp
   TextFileManager.h TextFileManager.cpp
   processorManager.h processorManager.cpp
+  FactoryStringProccessor.h FactoryStringProccessor.cpp
+  ProcessClass/Process.h ProcessClass/Process.cpp
+  ProcessClass/DoUpperCase.h ProcessClass/DoUpperCase.cpp
+  ProcessClass/DoLowerCase.h ProcessClass/DoLowerCase.cpp
+  ProcessClass/SetFirstCharUp.h ProcessClass/SetFirstCharUp.cpp
+  utils/ProcessOrder.h
 )
 target_link_libraries(TextFileProcessor Qt${QT_VERSION_MAJOR}::Core)
