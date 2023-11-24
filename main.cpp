@@ -4,6 +4,8 @@
 #include <QMap>
 #include "processorManager.h"
 #include <QDebug>
+#include "utils/ProcessOrder.h"
+//sudo gdbserver 127.0.0.1:1234 ./TextFileProcessor -i ../sample/file-1.txt -o ../sample/file2.txt -U
 
 QMap<QString, QString> parseParameters(int argc, char* argv[]) {
     QMap<QString, QString> parameters;
@@ -67,6 +69,21 @@ int main(int argc, char *argv[])
                return 0;
           }
           processorManager process;
+              process.sourceAddress = parameters.value("i");
+              process.destAddress = parameters.value("o");
+
+          if (parameters.contains("U")) {
+             process.orders.push_back(ProcessOrder::UpperCase);
+          }
+          if (parameters.contains("L")) {
+               process.orders.push_back(ProcessOrder::LowerCase);
+          }
+          if (parameters.contains("u")) {
+               process.orders.push_back(ProcessOrder::FirstCharUp);
+          }
+           if(!parameters.contains("U") && !parameters.contains("L") && !parameters.contains("u")) {
+               process.orders.push_back(ProcessOrder::FirstCharUp);
+          }
           process.init(parameters);
         } else {
             std::cout << "No command-line arguments provided." << std::endl;

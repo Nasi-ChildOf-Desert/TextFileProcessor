@@ -8,7 +8,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Core REQUIRED)
@@ -18,11 +18,11 @@ add_executable(TextFileProcessor
   main.cpp
   TextFileManager.h TextFileManager.cpp
   processorManager.h processorManager.cpp
-  FactoryStringProccessor.h FactoryStringProccessor.cpp
   ProcessClass/Process.h ProcessClass/Process.cpp
   ProcessClass/DoUpperCase.h ProcessClass/DoUpperCase.cpp
   ProcessClass/DoLowerCase.h ProcessClass/DoLowerCase.cpp
   ProcessClass/SetFirstCharUp.h ProcessClass/SetFirstCharUp.cpp
   utils/ProcessOrder.h
+  StringProcessFactory.h StringProcessFactory.cpp
 )
 target_link_libraries(TextFileProcessor Qt${QT_VERSION_MAJOR}::Core)

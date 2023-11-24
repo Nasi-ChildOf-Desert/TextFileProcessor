@@ -1,17 +1,23 @@
 #include "DoUpperCase.h"
 
-void DoUpperCase::doUpper()
-{
-    auto modifiedContent =  _param.toUpper();
-    _param.clear();
-    _param  = modifiedContent;
-}
+
 
 /*************************************************************************************/
-DoUpperCase::DoUpperCase(QString& param):_param(param){doUpper();}
+DoUpperCase::DoUpperCase()
+{
+
+}
 
 /*************************************************************************************/
 DoUpperCase::~DoUpperCase()
 {
+
+}
+
+void DoUpperCase::stringProcessor(QString &str)
+{
+    auto strUpper = str.toUpper();
+    str.clear();
+    str =strUpper;
 
 };

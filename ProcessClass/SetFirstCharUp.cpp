@@ -1,8 +1,9 @@
 #include "SetFirstCharUp.h"
 #include <QStringList>
-void SetFirstCharUp::firstCharUp()
+
+void SetFirstCharUp::stringProcessor(QString &str)
 {
-    QStringList lines = _param.split("\n");
+    QStringList lines = str.split("\n");
         for (QString& line : lines) {
             QStringList words = line.split(' ', QString::SkipEmptyParts);
             for (QString& word : words) {
@@ -15,11 +16,14 @@ void SetFirstCharUp::firstCharUp()
             }
             line = words.join(' ');
         }
-        _param = lines.join("\n");
+        str = lines.join("\n");
 }
 
 /*************************************************************************************/
-SetFirstCharUp::SetFirstCharUp(QString &param):_param(param){firstCharUp();}
+SetFirstCharUp::SetFirstCharUp()
+{
+
+}
 
 /*************************************************************************************/
 SetFirstCharUp::~SetFirstCharUp()

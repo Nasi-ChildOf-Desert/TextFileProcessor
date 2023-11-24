@@ -5,11 +5,11 @@
 
 class DoUpperCase: public Process
 {
-    QString& _param  ;
-    void doUpper();
+
 public:
-    DoUpperCase(QString& param);
+    DoUpperCase();
     ~DoUpperCase();
+     void stringProcessor(QString& str);
 };
 
 #endif // DOUPPERCASE_H

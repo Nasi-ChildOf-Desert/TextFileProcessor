@@ -1,14 +1,14 @@
 #ifndef SETFIRSTCHARUP_H
 #define SETFIRSTCHARUP_H
-#include <QString>
+
 #include "Process.h"
 
 class SetFirstCharUp: public Process
 {
-    QString& _param  ;
-    void firstCharUp();
+
 public:
-    SetFirstCharUp(QString& param);
+    void stringProcessor(QString& str);
+    SetFirstCharUp();
     ~SetFirstCharUp();
 };
 

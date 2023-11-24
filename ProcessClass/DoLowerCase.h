@@ -5,12 +5,13 @@
 
 class DoLowerCase: public Process
 {
-    QString& _param  ;
-    void doLower();
+
+
 public:
 
-    DoLowerCase(QString& param);
+    DoLowerCase();
     ~DoLowerCase();
+    void stringProcessor(QString& str);
 };
 
 #endif // DOLOWERCASE_H
