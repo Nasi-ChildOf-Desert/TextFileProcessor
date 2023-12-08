@@ -27,7 +27,7 @@ QMap<QString, QString> parseParameters(int argc, char* argv[]) {
 }
 
 /*************************************************************************************/
-bool isCorrectInput(QMap<QString, QString>& parameters)
+bool isCorrectInput(const QMap<QString, QString>& parameters)
 {
 
     if (parameters.contains("i") && parameters.value("i").isEmpty()) {

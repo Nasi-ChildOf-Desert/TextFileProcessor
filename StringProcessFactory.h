@@ -9,7 +9,6 @@ class StringProcessFactory
 {
 public:
     StringProcessFactory();
-    //std::vector<std::unique_ptr<Process>> create(QMap<QString, QString> params);
     std::unique_ptr<Process> create(ProcessOrder order);
 };
 
