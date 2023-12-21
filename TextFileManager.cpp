@@ -1,15 +1,15 @@
 #include "TextFileManager.h"
 #include <iostream>
-#include <QFile>
+#include <fstream>
 #include <QTextStream>
 
-
+#include <string>
 TextFileManager::TextFileManager()
 {
 
 }
 
-void TextFileManager::init(QString sourceFilePath, QString destinationFilePath)
+void TextFileManager::init(std::string sourceFilePath, std::string destinationFilePath)
 {
     _sourceFilePath =sourceFilePath;
     _destinationFilePath = destinationFilePath;
@@ -17,42 +17,46 @@ void TextFileManager::init(QString sourceFilePath, QString destinationFilePath)
 
 /*************************************************************************************/
 bool TextFileManager::openFile() {
-    QFile file(_sourceFilePath);
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QTextStream in(&file);
-        _fileContents = in.readAll();
-        file.close();
-        std::cout << "Source file opened successfully." << std::endl;
-        return true;
-    } else {
-        std::cerr << "Failed to open the source file." << std::endl;
-        return false;
-    }
+
+    std::ifstream inf{ _sourceFilePath };
+
+       // If we couldn't open the output file stream for reading
+       if (!inf)
+       {
+           // Print an error and exit
+           std::cerr << "Uh oh, "+ _sourceFilePath +" could not be opened for reading!\n";
+           return false;
+       }
+
+           std::string line;
+       while (std::getline(inf, line)) {
+             _fileContents += line + "\n"; // Append each line to the string
+         }
+     inf.close();
+     return true;
 }
 
 /*************************************************************************************/
 bool TextFileManager::writeFile() {
-    QFile file(_destinationFilePath);
-    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        QTextStream out(&file);
-        out << _fileContents;
-        file.close();
-        std::cout << "Destination file written successfully." << std::endl;
-        return true;
-    } else {
-        std::cerr << "Failed to write to the destination file." << std::endl;
-        return false;
-    }
+
+    // Create and open a text file
+      std::ofstream MyFile(_destinationFilePath);
+
+      // Write to the file
+      MyFile << _fileContents;
+
+      // Close the file
+      MyFile.close();
 }
 
 /*************************************************************************************/
-QString TextFileManager::getContent()
+std::string TextFileManager::getContent()
 {
     return _fileContents;
 }
 
 /*************************************************************************************/
-void TextFileManager::setContent(QString fileContents)
+void TextFileManager::setContent(std::string fileContents)
 {
     _fileContents = fileContents;
 }

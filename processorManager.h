@@ -4,24 +4,22 @@
 #include "TextFileManager.h"
 #include <QMap>
 #include "utils/ProcessOrder.h"
+#include "utils/StrStruct.h"
 #include <vector>
 class processorManager
 {
 private:
 
     TextFileManager _fileManager;
-    QMap<QString, QString> _params ;
-    QString _fileContent;
+    std::string _fileContent;
     void paramInitialize();
-
+    strStruct _strStruct;
 public:
-    QString sourceAddress;
-    QString destAddress;
-    std::vector<ProcessOrder> orders;
+    void setStrStruct(strStruct stStruct);
     processorManager();
-    void init(QMap<QString, QString>& parameters);
+    void init();
     void startSaving();
-    QString responseOfProcess();
+    std::string responseOfProcess();
 };
 
 #endif // PROCESSORMANAGER_H

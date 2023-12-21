@@ -14,10 +14,10 @@ DoUpperCase::~DoUpperCase()
 
 }
 
-void DoUpperCase::stringProcessor(QString &str)
+void DoUpperCase::stringProcessor(std::string &str)
 {
-    auto strUpper = str.toUpper();
+    auto strUpper = BasicStringProcess::str_toupper(str);
     str.clear();
-    str =strUpper;
+    str = strUpper;
 
 };

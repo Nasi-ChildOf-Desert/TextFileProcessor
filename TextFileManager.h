@@ -1,21 +1,22 @@
 #ifndef TEXTFILEMANAGER_H
 #define TEXTFILEMANAGER_H
-#include <QString>
+#include <fstream>
+#include <iostream>
 
 class TextFileManager
 {
 private:
-    QString _sourceFilePath;
-    QString _destinationFilePath;
-    QString _fileContents;
+    std::string _sourceFilePath;
+    std::string _destinationFilePath;
+    std::string _fileContents;
 
 public:
     TextFileManager();
-    void init( QString sourceFilePath, QString destinationFilePath);
+    void init(std::string sourceFilePath, std::string destinationFilePath);
     bool openFile();
     bool writeFile();
-    QString getContent();
-    void setContent( QString fileContents);
+    std::string getContent();
+    void setContent(std::string fileContents);
 };
 
 #endif // TEXTFILEMANAGER_H

@@ -24,5 +24,7 @@ add_executable(TextFileProcessor
   ProcessClass/SetFirstCharUp.h ProcessClass/SetFirstCharUp.cpp
   utils/ProcessOrder.h
   StringProcessFactory.h StringProcessFactory.cpp
+  utils/StrStruct.h
+  ProcessClass/BasicStringProcess.h
 )
 target_link_libraries(TextFileProcessor Qt${QT_VERSION_MAJOR}::Core)

@@ -1,20 +1,28 @@
 
 #include <iostream>
-#include <QString>
-#include <QMap>
+#include <map>
 #include "processorManager.h"
-#include <QDebug>
 #include "utils/ProcessOrder.h"
+#include "utils/StrStruct.h"
+
 //sudo gdbserver 127.0.0.1:1234 ./TextFileProcessor -i ../sample/file-1.txt -o ../sample/file2.txt -U
+typedef std::map<std::string, std::string> mapstr;
+bool check(const mapstr& v ,std::string x)
+{
+      if(v.find(x) == v.end())
+          return false;
+      else if(!v.find(x)->second.empty())
+          return true ;
+      return true;
+}
 
-QMap<QString, QString> parseParameters(int argc, char* argv[]) {
-    QMap<QString, QString> parameters;
-
+mapstr parseParameters(int argc, char* argv[]) {
+    mapstr parameters;
     for (int i = 1; i < argc; ++i) {
-        QString arg = argv[i];
+        std::string arg = argv[i];
         if (arg.length() > 1 && arg[0] == '-') {
-            QString parameter = arg.mid(1);
-            QString value = "";
+            std::string parameter = arg.substr(1);
+            std::string value = "";
             if (i + 1 < argc && argv[i + 1][0] != '-') {
                 value = argv[i + 1];
                 ++i;
@@ -27,18 +35,18 @@ QMap<QString, QString> parseParameters(int argc, char* argv[]) {
 }
 
 /*************************************************************************************/
-bool isCorrectInput(const QMap<QString, QString>& parameters)
+bool isCorrectInput(const mapstr& parameters)
 {
 
-    if (parameters.contains("i") && parameters.value("i").isEmpty()) {
-         std::cout << " i is: " <<  parameters.value("i").toStdString()<< std::endl;
+    if (!(check(parameters,"i"))) {
+         std::cout << " i is: " <<   parameters.find("i")->second.data()<< std::endl;
         // Key 'i' exists in the map and has a non-empty value
         return false;
     }
 
-    if (parameters.contains("o") && parameters.value("o").isEmpty()) {
+    if (!check(parameters,"o")) {
         // Key 'o' exists in the map and has a non-empty value
-          std::cout << " o is: " <<  parameters.value("o").toStdString()<< std::endl;
+          std::cout << " o is: " <<   parameters.find("o")->second.data()<< std::endl;
         return false;
     }
 
@@ -46,11 +54,11 @@ bool isCorrectInput(const QMap<QString, QString>& parameters)
 }
 
 /*************************************************************************************/
-void printParameters(const QMap<QString, QString>& parameters) {
+void printParameters(const mapstr& parameters) {
     for (auto it = parameters.begin(); it != parameters.end(); ++it) {
-        std::cout << "Parameter: " << it.key().toStdString();
-        if (!it.value().isEmpty()) {
-            std::cout << " Value: " << it.value().toStdString();
+        std::cout << "Parameter: " << it->first.data();
+        if (!(*it).second.empty()) {
+            std::cout << " Value: " << (*it).second;
         }
         std::cout << std::endl;
     }
@@ -61,30 +69,36 @@ int main(int argc, char *argv[])
 {
 
     if (argc > 1) {
-            QMap<QString, QString> parameters = parseParameters(argc, argv);
+           mapstr parameters = parseParameters(argc, argv);
             printParameters(parameters);
           if(!isCorrectInput(parameters))
           {
                std::cout << "No command-line arguments is complted tell addrese . -i for input address and -o for output address." << std::endl;
                return 0;
           }
+          strStruct strstruct;
           processorManager process;
-              process.sourceAddress = parameters.value("i");
-              process.destAddress = parameters.value("o");
+          strstruct.source =parameters.at("i");
+          strstruct.destination =parameters.at("o");
 
-          if (parameters.contains("U")) {
-             process.orders.push_back(ProcessOrder::UpperCase);
+          auto nothingchoosen = true;
+          if (parameters.find("U") != parameters.end()) {
+             strstruct.orders.push_back(ProcessOrder::UpperCase);
+             nothingchoosen = false;
           }
-          if (parameters.contains("L")) {
-               process.orders.push_back(ProcessOrder::LowerCase);
+          if (parameters.find("L") != parameters.end()) {
+                strstruct.orders.push_back(ProcessOrder::LowerCase);
+               nothingchoosen = false;
           }
-          if (parameters.contains("u")) {
-               process.orders.push_back(ProcessOrder::FirstCharUp);
+          if (parameters.find("u") != parameters.end()) {
+                strstruct.orders.push_back(ProcessOrder::FirstCharUp);
           }
-           if(!parameters.contains("U") && !parameters.contains("L") && !parameters.contains("u")) {
-               process.orders.push_back(ProcessOrder::FirstCharUp);
+           if(nothingchoosen) {
+                strstruct.orders.push_back(ProcessOrder::FirstCharUp);
+                nothingchoosen = false;
           }
-          process.init(parameters);
+          process.setStrStruct(strstruct);
+          process.init();
         } else {
             std::cout << "No command-line arguments provided." << std::endl;
         }

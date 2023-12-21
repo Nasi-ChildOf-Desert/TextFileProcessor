@@ -2,18 +2,25 @@
 #include "StringProcessFactory.h"
 
 
+
 void processorManager::paramInitialize()
 {
 
     StringProcessFactory factory;
-    _fileManager.init(sourceAddress,destAddress);
+    _fileManager.init(_strStruct.source,_strStruct.destination);
     _fileManager.openFile();
     _fileContent =_fileManager.getContent();
-    for (auto it = orders.begin(); it != orders.end(); ++it) {
+    for (auto it = _strStruct.orders.begin(); it != _strStruct.orders.end(); ++it) {
          auto  proc=  factory.create(*it);
          proc->stringProcessor(_fileContent);
 
-       }
+    }
+}
+
+/*************************************************************************************/
+void processorManager::setStrStruct(strStruct stStruct)
+{
+    _strStruct = stStruct;
 }
 
 /*************************************************************************************/
@@ -23,9 +30,8 @@ processorManager::processorManager()
 }
 
 /*************************************************************************************/
-void processorManager::init(QMap<QString, QString>& parameters)
+void processorManager::init()
 {
-   _params =parameters;
    paramInitialize();
    startSaving();
 }

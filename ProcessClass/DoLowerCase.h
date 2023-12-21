@@ -6,12 +6,11 @@
 class DoLowerCase: public Process
 {
 
-
 public:
 
     DoLowerCase();
     ~DoLowerCase();
-    void stringProcessor(QString& str);
+    void stringProcessor(std::string& str);
 };
 
 #endif // DOLOWERCASE_H

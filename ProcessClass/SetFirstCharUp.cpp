@@ -1,22 +1,36 @@
 #include "SetFirstCharUp.h"
-#include <QStringList>
 
-void SetFirstCharUp::stringProcessor(QString &str)
+#include <sstream>
+
+void SetFirstCharUp::split_str(const std::string &str, const char delim, std::vector<std::string> &out)
 {
-    QStringList lines = str.split("\n");
-        for (QString& line : lines) {
-            QStringList words = line.split(' ', QString::SkipEmptyParts);
-            for (QString& word : words) {
-                if (!word.isEmpty()) {
-                    QChar firstChar = word.at(0);
-                    if (firstChar.isLetter()) {
-                        word[0] = firstChar.toUpper();
-                    }
-                }
-            }
-            line = words.join(' ');
-        }
-        str = lines.join("\n");
+    // create a stream from the string
+      std::stringstream s(str);
+
+     std::string s2;
+     while (std:: getline (s, s2, delim) )
+        {
+            out.push_back(s2); // store the string in s2
+         }
+}
+
+/*************************************************************************************/
+void SetFirstCharUp::stringProcessor(std::string &str)
+{
+    std::vector <std::string> out;
+     split_str (str, delim, out);
+     // use range based for loop
+     std::string result;
+                 for (auto &word: out)
+                 {
+                     if (!word.empty()) {
+                         char firstChar = word.at(0);
+                         if (isalpha(firstChar)) {
+                             word[0] = std::toupper(firstChar);
+                         }
+                     }
+                     result.append(" " + word)  ;
+                 }
 }
 
 /*************************************************************************************/

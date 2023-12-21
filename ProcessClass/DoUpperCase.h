@@ -9,7 +9,7 @@ class DoUpperCase: public Process
 public:
     DoUpperCase();
     ~DoUpperCase();
-     void stringProcessor(QString& str);
+     void stringProcessor(std::string& str);
 };
 
 #endif // DOUPPERCASE_H

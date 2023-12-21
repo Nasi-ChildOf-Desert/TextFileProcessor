@@ -1,6 +1,8 @@
 #include "DoLowerCase.h"
 
 /*************************************************************************************/
+
+
 DoLowerCase::DoLowerCase(){}
 
 /*************************************************************************************/
@@ -9,9 +11,9 @@ DoLowerCase::~DoLowerCase()
 
 }
 
-void DoLowerCase::stringProcessor(QString &str)
+void DoLowerCase::stringProcessor(std::string &str)
 {
-    auto strLower = str.toLower();
+    auto strLower = BasicStringProcess::str_tolower(str);
     str.clear();
     str = strLower;
 }
