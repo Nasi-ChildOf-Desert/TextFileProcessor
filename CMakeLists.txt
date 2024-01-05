@@ -16,7 +16,6 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core REQUIRED)
 
 add_executable(TextFileProcessor
   main.cpp
-  TextFileManager.h TextFileManager.cpp
   processorManager.h processorManager.cpp
   ProcessClass/Process.h ProcessClass/Process.cpp
   ProcessClass/DoUpperCase.h ProcessClass/DoUpperCase.cpp
@@ -26,5 +25,8 @@ add_executable(TextFileProcessor
   StringProcessFactory.h StringProcessFactory.cpp
   utils/StrStruct.h
   ProcessClass/BasicStringProcess.h
+  stringResouce/InOutReSource.h stringResouce/InOutReSource.cpp
+    stringResouce/TextFileManager.h stringResouce/TextFileManager.cpp
+    stringResouce/ResourceFactory.h stringResouce/ResourceFactory.cpp
 )
 target_link_libraries(TextFileProcessor Qt${QT_VERSION_MAJOR}::Core)

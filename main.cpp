@@ -4,6 +4,9 @@
 #include "processorManager.h"
 #include "utils/ProcessOrder.h"
 #include "utils/StrStruct.h"
+#include "stringResouce/ResourceFactory.h"
+#include "stringResouce/InOutReSource.h"
+#include "stringResouce/TextFileManager.h"
 
 //sudo gdbserver 127.0.0.1:1234 ./TextFileProcessor -i ../sample/file-1.txt -o ../sample/file2.txt -U
 typedef std::map<std::string, std::string> mapstr;
@@ -78,9 +81,11 @@ int main(int argc, char *argv[])
           }
           strStruct strstruct;
           processorManager process;
-          strstruct.source =parameters.at("i");
-          strstruct.destination =parameters.at("o");
+          ResourceFactory rFactory;
+          std::unique_ptr<InOutReSource> inOutSource = rFactory.create('F');
 
+         strstruct.destAddress =parameters.at("o");
+         strstruct.sourceAddress = parameters.at("i");
           auto nothingchoosen = true;
           if (parameters.find("U") != parameters.end()) {
              strstruct.orders.push_back(ProcessOrder::UpperCase);
@@ -97,8 +102,11 @@ int main(int argc, char *argv[])
                 strstruct.orders.push_back(ProcessOrder::FirstCharUp);
                 nothingchoosen = false;
           }
-          process.setStrStruct(strstruct);
+
+         process.setStrStruct(strstruct);
+         process.injectSourceData(std::move(inOutSource));
           process.init();
+
         } else {
             std::cout << "No command-line arguments provided." << std::endl;
         }

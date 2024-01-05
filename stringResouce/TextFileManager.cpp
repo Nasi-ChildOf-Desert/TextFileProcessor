@@ -1,13 +1,8 @@
 #include "TextFileManager.h"
 #include <iostream>
 #include <fstream>
-#include <QTextStream>
-
 #include <string>
-TextFileManager::TextFileManager()
-{
 
-}
 
 void TextFileManager::init(std::string sourceFilePath, std::string destinationFilePath)
 {
@@ -49,14 +44,15 @@ bool TextFileManager::writeFile() {
       MyFile.close();
 }
 
-/*************************************************************************************/
-std::string TextFileManager::getContent()
+std::string TextFileManager::getStr()
 {
+    openFile();
     return _fileContents;
 }
 
-/*************************************************************************************/
-void TextFileManager::setContent(std::string fileContents)
+void TextFileManager::setStr(std::string str)
 {
-    _fileContents = fileContents;
+  _fileContents = str;
+  writeFile();
 }
+

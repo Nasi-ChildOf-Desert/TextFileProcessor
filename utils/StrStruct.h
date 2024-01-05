@@ -6,9 +6,8 @@
 struct strStruct
 {
     std::vector <ProcessOrder > orders;
-    std::string source;
-    std::string destination;
-
+    std::string sourceAddress;
+    std::string destAddress;
 };
 
 #endif // STRSTRUCT_H

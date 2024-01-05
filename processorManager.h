@@ -1,25 +1,27 @@
 #ifndef PROCESSORMANAGER_H
 #define PROCESSORMANAGER_H
 #include <QString>
-#include "TextFileManager.h"
 #include <QMap>
 #include "utils/ProcessOrder.h"
 #include "utils/StrStruct.h"
 #include <vector>
+#include "stringResouce/InOutReSource.h"
+#include "memory"
 class processorManager
 {
 private:
 
-    TextFileManager _fileManager;
+    std::unique_ptr<InOutReSource> _strSource;
     std::string _fileContent;
     void paramInitialize();
     strStruct _strStruct;
+    void startSaving();
 public:
     void setStrStruct(strStruct stStruct);
     processorManager();
     void init();
-    void startSaving();
-    std::string responseOfProcess();
+    void injectSourceData(std::unique_ptr<InOutReSource> sourceData);
+
 };
 
 #endif // PROCESSORMANAGER_H

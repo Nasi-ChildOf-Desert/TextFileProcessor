@@ -16,8 +16,5 @@ DoUpperCase::~DoUpperCase()
 
 void DoUpperCase::stringProcessor(std::string &str)
 {
-    auto strUpper = BasicStringProcess::str_toupper(str);
-    str.clear();
-    str = strUpper;
-
+    str = BasicStringProcess::str_toupper(str);
 };
