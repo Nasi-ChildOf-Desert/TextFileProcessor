@@ -45,7 +45,7 @@ bool TextFileManager::writeFile() {
 }
 
 std::string TextFileManager::getStr()
-{
+{  
     openFile();
     return _fileContents;
 }

@@ -7,9 +7,15 @@
 #include "stringResouce/ResourceFactory.h"
 #include "stringResouce/InOutReSource.h"
 #include "stringResouce/TextFileManager.h"
+#include <memory>
 
 //sudo gdbserver 127.0.0.1:1234 ./TextFileProcessor -i ../sample/file-1.txt -o ../sample/file2.txt -U
-typedef std::map<std::string, std::string> mapstr;
+//typedef  mapstr;
+using mapstr = std::map<std::string, std::string>;
+
+//modern c++
+//typedef --> alias
+
 bool check(const mapstr& v ,std::string x)
 {
       if(v.find(x) == v.end())
@@ -82,10 +88,11 @@ int main(int argc, char *argv[])
           strStruct strstruct;
           processorManager process;
           ResourceFactory rFactory;
-          std::unique_ptr<InOutReSource> inOutSource = rFactory.create('F');
 
-         strstruct.destAddress =parameters.at("o");
-         strstruct.sourceAddress = parameters.at("i");
+          std::unique_ptr<InOutReSource> inOutSource = rFactory.create('F');
+          auto textFileSource = std::make_unique<TextFileManager>(dynamic_cast<TextFileManager&>(*inOutSource));
+         textFileSource->init(parameters.at("i") , parameters.at("o"));
+
           auto nothingchoosen = true;
           if (parameters.find("U") != parameters.end()) {
              strstruct.orders.push_back(ProcessOrder::UpperCase);
@@ -104,8 +111,9 @@ int main(int argc, char *argv[])
           }
 
          process.setStrStruct(strstruct);
-         process.injectSourceData(std::move(inOutSource));
-          process.init();
+
+         process.injectSourceData(std::move(textFileSource));
+         process.init();
 
         } else {
             std::cout << "No command-line arguments provided." << std::endl;

@@ -8,7 +8,7 @@ void processorManager::paramInitialize()
 
     StringProcessFactory factory;
 
-    // _strSource.init???? how to get init method?
+
     _fileContent =_strSource->getStr();
     for (auto it = _strStruct.orders.begin(); it != _strStruct.orders.end(); ++it) {
          auto  proc=  factory.create(*it);

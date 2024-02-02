@@ -1,6 +1,5 @@
 #ifndef DOUPPERCASE_H
 #define DOUPPERCASE_H
-#include <QString>
 #include "Process.h"
 
 class DoUpperCase: public Process

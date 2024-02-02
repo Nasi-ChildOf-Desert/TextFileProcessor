@@ -1,6 +1,6 @@
 #ifndef DOLOWERCASE_H
 #define DOLOWERCASE_H
-#include <QString>
+
 #include "Process.h"
 
 class DoLowerCase: public Process

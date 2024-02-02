@@ -2,6 +2,7 @@
 #define BASICSTRINGPROCESS_H
 #include <string>
 #include <algorithm>
+
 class BasicStringProcess
 {
 public:

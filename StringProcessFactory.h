@@ -3,8 +3,8 @@
 #include "ProcessClass/Process.h"
 #include <memory>
 #include <vector>
-#include <QMap>
 #include "utils/ProcessOrder.h"
+
 class StringProcessFactory
 {
 public:
